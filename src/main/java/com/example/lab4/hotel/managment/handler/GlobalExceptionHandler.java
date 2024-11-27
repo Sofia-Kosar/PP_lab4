@@ -19,6 +19,11 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
 
+	@ExceptionHandler(UserAlreadyExistException.class)
+	public ResponseEntity<String> handleAmenityNotExist(UserAlreadyExistException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+
 	@ExceptionHandler(HouseNotFoundException.class)
 	public ResponseEntity<String> handleHouseNotFound(HouseNotFoundException e) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -71,11 +76,6 @@ public class GlobalExceptionHandler {
 			errors.put(error.getField(), error.getDefaultMessage());
 		}
 		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-	}
-
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<String> handleRuntimeExceptions(RuntimeException ex) {
-		return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
 

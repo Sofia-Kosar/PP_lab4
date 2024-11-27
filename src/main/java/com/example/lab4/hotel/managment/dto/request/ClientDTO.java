@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,5 +25,7 @@ public class ClientDTO {
 	@NotBlank(message = "Email is mandatory")
 	@Email(message = "Invalid email format")
 	private String email;
+
+	private BigDecimal balance;
 }
 

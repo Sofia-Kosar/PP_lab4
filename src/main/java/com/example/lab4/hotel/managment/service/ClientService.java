@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface ClientService {
 
-	List<ClientDTO> getAllClients();
-
-	ClientDTO getClientById(Long id);
+	ClientDTO getClientByEmail(String email);
 
 	ClientDTO createClient(ClientDTO clientDTO);
 
-	ClientDTO updateClient(Long id, ClientDTO clientDTO);
+	ClientDTO updateClient(String email, ClientDTO clientDTO);
 
-	void deleteClient(Long id);
+	void deleteClient(String email);
 
 	Client findUserByEmail(String email);
 
 	void withdrawBalance(String email, BigDecimal totalPrice);
+
+	ClientDTO depositBalance(String email, String balance);
 }

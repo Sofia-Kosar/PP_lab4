@@ -7,16 +7,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
-@RequestMapping("api/v1/clients")
+@RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 public class ClientController {
 
 	private final ClientService clientService;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
-		return ResponseEntity.ok(clientService.getClientById(id));
+	@GetMapping("/{email}")
+	public ResponseEntity<ClientDTO> getClientByEmail(@PathVariable String email) {
+		return ResponseEntity.ok(clientService.getClientByEmail(email));
 	}
 
 	@PostMapping
@@ -24,14 +26,20 @@ public class ClientController {
 		return ResponseEntity.ok(clientService.createClient(clientDTO));
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDTO clientDTO) {
-		return ResponseEntity.ok(clientService.updateClient(id, clientDTO));
+	@PutMapping("/{email}")
+	public ResponseEntity<ClientDTO> updateClient(@PathVariable String email, @Valid @RequestBody ClientDTO clientDTO) {
+		return ResponseEntity.ok(clientService.updateClient(email, clientDTO));
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
-		clientService.deleteClient(id);
+	@DeleteMapping("/{email}")
+	public ResponseEntity<Void> deleteClient(@PathVariable String email) {
+		clientService.deleteClient(email);
 		return ResponseEntity.noContent().build();
+	}
+
+	@PostMapping("/deposit")
+	public ResponseEntity<ClientDTO> depositBalance(@Valid @RequestParam String email,
+													@RequestParam String balance) {
+		return ResponseEntity.ok(clientService.depositBalance(email, balance));
 	}
 }
